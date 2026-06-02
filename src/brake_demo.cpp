@@ -73,7 +73,7 @@ bool isEmergencyBrakeRequested(int diagnosticCode)
 {
     int activeDiagnostic = 0;
     bool brakeRequest = false;
-    if ((g_lastPressure >= 0) && ((activeDiagnostic = sanitizeDiagnosticCode(diagnosticCode)) > 0))
+    if ((g_lastPressure >= 0) && (activeDiagnostic = sanitizeDiagnosticCode(diagnosticCode)))
     {
         brakeRequest = true;
     }
