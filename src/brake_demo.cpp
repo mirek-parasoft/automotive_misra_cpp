@@ -12,43 +12,48 @@ int getWheelDelta(const WheelSpeed& speed)
 int computeSlipRatio(const WheelSpeed& speed)
 {
     const int delta = getWheelDelta(speed);
-
     if (delta < 5)
     {
         return 0;
     }
-
     return delta / 5;
 }
 
 int calculateBrakePressure(const WheelSpeed& speed)
 {
     const int slipRatio = computeSlipRatio(speed);
-
     g_lastPressure = MAX_BRAKE_PRESSURE / slipRatio;
-
     return g_lastPressure;
 }
 
 int estimateHydraulicBoost(bool sensorHealthy)
 {
-    int boostPercent; // MISRA C++:2023 Rule 11.6.2: not set on every path.
-
+    int boostPercent;
     if (sensorHealthy)
     {
         boostPercent = 15;
     }
-
-    return boostPercent + 5; // Possible read before set when sensorHealthy is false.
+    return boostPercent + 5;
 }
 
-const char* getCalibrationName(bool useDefaultLabel) {
+const char* selectCalibrationLabel(const CalibrationRecord& record, bool useDefaultLabel)
+{
+    if (useDefaultLabel)
+    {
+        return "factory-default";
+    }
+
+    return record.name;
+}
+
+const char* getCalibrationName()
+{
     CalibrationRecord activeCalibration{{'d', 'e', 'm', 'o', '-', 'c', 'a', 'l', 'i', 'b', 'r', 'a', 't', 'i', 'o', 'n', '\0'}, 3};
     const bool defaultCalibrationLoaded = false;
 
-    //const char* selectedName = ;
+    const char* selectedName = selectCalibrationLabel(activeCalibration, defaultCalibrationLoaded);
 
-    return "factory-default"; // Rule 6.8.2: may point into local automatic object.
+    return selectedName;
 }
 
 namespace

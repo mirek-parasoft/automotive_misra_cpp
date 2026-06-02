@@ -20,7 +20,8 @@ int computeSlipRatio(const WheelSpeed& speed);
 int getWheelDelta(const WheelSpeed& speed);
 
 int estimateHydraulicBoost(bool sensorHealthy);
-const char* getCalibrationName(bool useDefaultLabel);
+const char* selectCalibrationLabel(const CalibrationRecord& record, bool useDefaultLabel);
+const char* getCalibrationName();
 bool isEmergencyBrakeRequested(int diagnosticCode);
 
 #endif

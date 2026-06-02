@@ -12,7 +12,7 @@ int main()
     const int boost = estimateHydraulicBoost(false);
     std::cout << "Hydraulic boost: " << boost << '\n';
 
-    const char* calibrationName = getCalibrationName(false);
+    const char* calibrationName = getCalibrationName();
     std::cout << "Calibration: " << calibrationName << '\n';
 
     const bool emergencyBrake = isEmergencyBrakeRequested(1);
