@@ -22,13 +22,16 @@ int computeSlipRatio(const WheelSpeed& speed)
 int calculateBrakePressure(const WheelSpeed& speed)
 {
     const int slipRatio = computeSlipRatio(speed);
-    g_lastPressure = MAX_BRAKE_PRESSURE / slipRatio;
+    if (slipRatio != 0)
+    {
+        g_lastPressure = MAX_BRAKE_PRESSURE / slipRatio;
+    }
     return g_lastPressure;
 }
 
 int estimateHydraulicBoost(bool sensorHealthy)
 {
-    int boostPercent;
+    int boostPercent = 0;
     if (sensorHealthy)
     {
         boostPercent = 15;
@@ -71,9 +74,9 @@ int sanitizeDiagnosticCode(int diagnosticCode)
 
 bool isEmergencyBrakeRequested(int diagnosticCode)
 {
-    int activeDiagnostic = 0;
+    const int activeDiagnostic = sanitizeDiagnosticCode(diagnosticCode);
     bool brakeRequest = false;
-    if ((g_lastPressure >= 0) && (activeDiagnostic = sanitizeDiagnosticCode(diagnosticCode)))
+    if ((g_lastPressure >= 0) && (activeDiagnostic != 0))
     {
         brakeRequest = true;
     }
