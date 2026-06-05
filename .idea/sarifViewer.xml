@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="SarifSuppressionState">
+    <option name="suppressedKeys">
+      <set>
+        <option value="C/C++test::MISRACPP2023-8_18_2-a::/home/mirek/CLionProjects/automotive_misra_cpp/src/brake_demo.cpp::76" />
+      </set>
+    </option>
+  </component>
   <component name="SarifViewerProjectState">
     <option name="importedPaths">
       <list>
